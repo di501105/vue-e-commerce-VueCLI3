@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-light fixed-top navbar-expand-lg bg-white flex-lg-nowrap p-0 shadow">
       <router-link class="navbar-brand ml-2" to="/home">
-        <img src="static/images/logo-all-dark.svg" class="img-fluid" width="150">
+        <img src="../../public/static/images/logo-all-dark.svg" class="img-fluid" width="150">
       </router-link>
       <button class="navbar-toggler d-lg-none d-flex align-items-center order-lg-1"
       type="button"
