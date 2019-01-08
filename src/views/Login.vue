@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <HomeNavbar/>
     <section class="container px-0">
       <div class="row no-gutters justify-content-center">
@@ -42,6 +43,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import HomeNavbar from '../components/HomeNavbar.vue';
 import Footer from '../components/Footer.vue';
 
@@ -63,12 +65,19 @@ export default {
     signin() {
       const api = `${process.env.VUE_APP_APIPATH}admin/signin`;
       const vm = this;
+      vm.$store.dispatch('updateLoading', true);
       this.$http.post(api, vm.user).then((response) => {
         if (response.data.success) {
           vm.$router.push('/admin/products');
+        } else {
+          vm.$store.dispatch('updateLoading', false);
+          vm.$store.dispatch('updateMessage', { message: '帳號或密碼錯誤，請重新輸入！', status: 'danger' });
         }
       });
     },
+  },
+  computed: {
+    ...mapGetters(['isLoading']),
   },
 };
 </script>
