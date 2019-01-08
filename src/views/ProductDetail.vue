@@ -76,11 +76,10 @@ export default {
       vm.$store.dispatch('updateLoading', true);
       this.$http.get(url).then((response) => {
         if (response.data.success) {
-          console.log(response);
           vm.product = response.data.product;
           vm.$store.dispatch('updateLoading', false);
         } else {
-          console.log(response.data.message);
+          vm.$store.dispatch('updateMessage', { message: response.data.message, status: 'danger' });
         }
       });
     },
@@ -94,7 +93,6 @@ export default {
   created() {
     this.productId = this.$route.params.productId;
     this.getProduct();
-    // console.log(this.productId)
   },
 };
 </script>

@@ -198,7 +198,6 @@ export default {
       this.$http.get(url).then((response) => {
         vm.product = response.data.product;
         $('#productModal').modal('show');
-        console.log(response);
         vm.status.loadingItem = '';
       });
     },
@@ -218,8 +217,7 @@ export default {
         code: vm.coupon_code,
       };
       vm.$store.dispatch('updateLoading', true);
-      this.$http.post(url, { data: coupon }).then((response) => {
-        console.log(response);
+      this.$http.post(url, { data: coupon }).then(() => {
         this.getCart();
         vm.$store.dispatch('updateLoading', false);
       });
@@ -232,7 +230,6 @@ export default {
       this.$validator.validate().then((result) => {
         if (result) {
           this.$http.post(url, { data: order }).then((response) => {
-            console.log('訂單已建立', response);
             if (response.data.success) {
               vm.$router.push(`/dashboard/customer_checkout/${response.data.orderId}`);
             }
@@ -240,7 +237,7 @@ export default {
             vm.$store.dispatch('updateLoading', false);
           });
         } else {
-          console.log('欄位不完整');
+          vm.$store.dispatch('updateMessage', { message: '欄位不完整', status: 'danger' });
         }
       });
     },

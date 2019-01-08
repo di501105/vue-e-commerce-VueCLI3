@@ -104,8 +104,7 @@ export default {
         code: vm.coupon_code,
       };
       vm.$store.dispatch('updateLoading', true);
-      this.$http.post(url, { data: coupon }).then((response) => {
-        console.log(response);
+      this.$http.post(url, { data: coupon }).then(() => {
         this.getCart();
         vm.$store.dispatch('updateLoading', false);
       });

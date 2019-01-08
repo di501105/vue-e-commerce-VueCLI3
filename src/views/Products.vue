@@ -203,9 +203,7 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
         httpMethod = 'put';
       }
-      console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPATH);
       this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
-        console.log(response.data);
         if (response.data.success) {
           $('#productModal').modal('hide');
           vm.getPorducts();
@@ -226,15 +224,13 @@ export default {
       const vm = this;
       const url = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
       vm.$store.dispatch('updateLoading', true);
-      this.$http.delete(url).then((response) => {
-        console.log(response.data, vm.tempProduct);
+      this.$http.delete(url).then(() => {
         $('#delProductModal').modal('hide');
         vm.$store.dispatch('updateLoading', false);
         this.getPorducts();
       });
     },
     uploadFile() {
-      console.log(this);
       const uploadedFile = this.$refs.files.files[0];
       const vm = this;
       const formData = new FormData();
@@ -246,11 +242,9 @@ export default {
           'Content-Type': 'multipart/form-data',
         },
       }).then((response) => {
-        console.log(response.data);
         vm.status.fileUploading = false;
         if (response.data.success) {
           // vm.tempProduct.imageUrl = response.data.imageUrl;
-          // console.log(vm.tempProduct);
           vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
           vm.$store.dispatch('updateMessage', { message: '上傳成功', status: 'success' });
         } else {

@@ -123,7 +123,6 @@ export default {
       vm.$store.dispatch('updateLoading', true);
       this.$http.get(url).then((response) => {
         vm.order = response.data.order;
-        console.log(response);
         vm.$store.dispatch('updateLoading', false);
       });
     },
@@ -132,7 +131,6 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
       vm.$store.dispatch('updateLoading', true);
       this.$http.post(url).then((response) => {
-        console.log(response);
         if (response.data.success) {
           this.getOrder();
         }
@@ -142,7 +140,6 @@ export default {
   },
   created() {
     this.orderId = this.$route.params.orderId;
-    console.log(this.orderId);
     this.getOrder();
   },
 };

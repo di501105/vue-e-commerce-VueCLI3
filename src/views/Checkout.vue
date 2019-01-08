@@ -157,13 +157,13 @@ export default {
       this.$validator.validate().then((result) => {
         if (result) {
           this.$http.post(url, { data: order }).then((response) => {
-            console.log('訂單已建立', response);
+            vm.$store.dispatch('updateMessage', { message: '訂單已建立', status: 'success' });
             if (response.data.success) {
               vm.$router.push(`/order/${response.data.orderId}`);
             }
           });
         } else {
-          console.log('欄位不完整');
+          vm.$store.dispatch('updateMessage', { message: '欄位不完整', status: 'danger' });
           vm.$store.dispatch('updateLoading', false);
         }
       });
