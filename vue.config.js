@@ -1,4 +1,5 @@
 module.exports = {
-  baseUrl: '/vue-e-commerce-VueCLI3/',
-  outputDir: 'dist',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/vue-e-commerce-VueCLI3/'
+    : '/',
 };
